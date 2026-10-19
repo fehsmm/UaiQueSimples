@@ -245,6 +245,38 @@ namespace UaiQueSimples.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Quitandas"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pratos Principais"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Acompanhamentos"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Sopas e Caldos"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Doces e Sobremesas"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Petiscos"
+                        });
                 });
 
             modelBuilder.Entity("UaiQueSimples.Web.Models.Comment", b =>
@@ -296,6 +328,23 @@ namespace UaiQueSimples.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Difficulties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fácil"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Médio"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Difícil"
+                        });
                 });
 
             modelBuilder.Entity("UaiQueSimples.Web.Models.Favorite", b =>
@@ -314,9 +363,13 @@ namespace UaiQueSimples.Web.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Favorites");
                 });
@@ -329,6 +382,12 @@ namespace UaiQueSimples.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CreatedByUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -336,6 +395,128 @@ namespace UaiQueSimples.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsApproved = true,
+                            Name = "Sal"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsApproved = true,
+                            Name = "Açúcar"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsApproved = true,
+                            Name = "Farinha"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsApproved = true,
+                            Name = "Ovo"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsApproved = true,
+                            Name = "Leite"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsApproved = true,
+                            Name = "Manteiga"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsApproved = true,
+                            Name = "Creme de leite"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsApproved = true,
+                            Name = "Água"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsApproved = true,
+                            Name = "Azeite de oliva"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsApproved = true,
+                            Name = "Queijo Minas"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsApproved = true,
+                            Name = "Queijo Mussarela"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsApproved = true,
+                            Name = "Queijo Cottage"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsApproved = true,
+                            Name = "Polvilho Azedo"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsApproved = true,
+                            Name = "Polvilho Doce"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            IsApproved = true,
+                            Name = "Farinha de Trigo"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IsApproved = true,
+                            Name = "Farinha de Mandioca"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            IsApproved = true,
+                            Name = "Farinha de Milho"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            IsApproved = true,
+                            Name = "Pó Royal"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            IsApproved = true,
+                            Name = "Goiabada"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            IsApproved = true,
+                            Name = "Fubá"
+                        });
                 });
 
             modelBuilder.Entity("UaiQueSimples.Web.Models.Recipe", b =>
@@ -354,6 +535,9 @@ namespace UaiQueSimples.Web.Migrations
 
                     b.Property<int>("DifficultyId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
@@ -425,6 +609,53 @@ namespace UaiQueSimples.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Units");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Colher de sopa"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Colher de chá"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Xícara"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Copo"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Grama"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Quilo"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Litro"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Mililitro"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Pitada"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -487,6 +718,25 @@ namespace UaiQueSimples.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("UaiQueSimples.Web.Models.Favorite", b =>
+                {
+                    b.HasOne("UaiQueSimples.Web.Models.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UaiQueSimples.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UaiQueSimples.Web.Models.Recipe", b =>
