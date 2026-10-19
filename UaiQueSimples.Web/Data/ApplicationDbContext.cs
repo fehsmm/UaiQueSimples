@@ -27,5 +27,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .Property(c => c.Rating).HasDefaultValue(0);
         builder.Entity<Recipe>()
             .Ignore(r => r.AverageRating);
+        builder.Entity<RecipeIngredient>()
+            .Property(ri => ri.Quantity).HasPrecision(10, 2);
     }
 }
