@@ -1,0 +1,33 @@
+@model IEnumerable<UaiQueSimples.Web.Models.Recipe>
+@{
+    ViewData["Title"] = "Backoffice - Aprovação";
+}
+<h1>Receitas pendentes</h1>
+@if (!Model.Any())
+{
+    <div class="card">Sem receitas pendentes.</div>
+}
+else
+{
+    <section class="grid">
+    @foreach (var r in Model)
+    {
+        <article class="card">
+            <h3>@r.Title</h3>
+            <p>
+                <span class="badge">@r.Category?.Name</span>
+                <span class="badge">@r.Difficulty?.Name</span>
+                <span class="badge">@r.PreparationTimeMinutes min</span>
+            </p>
+            <form asp-action="Approve" method="post" style="display:inline">
+                <input type="hidden" name="id" value="@r.Id" />
+                <button class="btn" type="submit">Aprovar</button>
+            </form>
+            <form asp-action="Reject" method="post" style="display:inline">
+                <input type="hidden" name="id" value="@r.Id" />
+                <button class="btn secondary" type="submit">Rejeitar</button>
+            </form>
+        </article>
+    }
+    </section>
+}

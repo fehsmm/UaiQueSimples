@@ -1,0 +1,39 @@
+@model IEnumerable<UaiQueSimples.Web.Models.Recipe>
+@{
+    ViewData["Title"] = "Receitas";
+    var categories = ViewBag.Categories as IEnumerable<UaiQueSimples.Web.Models.Category>;
+    var difficulties = ViewBag.Difficulties as IEnumerable<UaiQueSimples.Web.Models.Difficulty>;
+    var q = ViewBag.Query as string;
+}
+<div class="card">
+    <form method="get">
+        <label for="q">Pesquisar</label>
+        <input type="text" name="q" id="q" value="@q" placeholder="Título, método...">
+        <div style="display:flex; gap:.8rem; margin:.6rem 0;">
+            <select name="categoryId">
+                <option value="">Categoria</option>
+                @foreach (var c in categories!) { <option value="@c.Id">@c.Name</option> }
+            </select>
+            <select name="difficultyId">
+                <option value="">Dificuldade</option>
+                @foreach (var d in difficulties!) { <option value="@d.Id">@d.Name</option> }
+            </select>
+            <button class="btn" type="submit">Filtrar</button>
+        </div>
+    </form>
+</div>
+<section class="grid">
+@foreach (var r in Model)
+{
+    <article class="card">
+        <h3>@r.Title</h3>
+        <p>
+            <span class="badge">@r.Category?.Name</span>
+            <span class="badge">@r.Difficulty?.Name</span>
+            <span class="badge">@r.PreparationTimeMinutes min</span>
+            @if (r.AverageRating.HasValue) { <span class="badge">★ @r.AverageRating.Value.ToString("0.0")</span> }
+        </p>
+        <p><a class="btn" asp-action="Details" asp-route-id="@r.Id">Ver detalhes</a></p>
+    </article>
+}
+</section>

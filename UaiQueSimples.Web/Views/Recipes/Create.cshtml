@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Nova Receita";
+    var categories = ViewBag.Categories as IEnumerable<UaiQueSimples.Web.Models.Category>;
+    var difficulties = ViewBag.Difficulties as IEnumerable<UaiQueSimples.Web.Models.Difficulty>;
+    var ingredients = ViewBag.Ingredients as IEnumerable<UaiQueSimples.Web.Models.Ingredient>;
+    var units = ViewBag.Units as IEnumerable<UaiQueSimples.Web.Models.UnitOfMeasure>;
+}
+<div class="card">
+    <h1>Submeter Receita</h1>
+    <form asp-action="Create" method="post">
+        <label>Título</label>
+        <input name="Title" required />
+
+        <label>Método de preparação</label>
+        <textarea name="PreparationMethod" rows="6" required></textarea>
+
+        <label>Tempo de preparação (minutos)</label>
+        <input name="PreparationTimeMinutes" type="number" min="0" value="15" required />
+
+        <label>Categoria</label>
+        <select name="CategoryId" required>
+            @foreach (var c in categories!) { <option value="@c.Id">@c.Name</option> }
+        </select>
+
+        <label>Dificuldade</label>
+        <select name="DifficultyId" required>
+            @foreach (var d in difficulties!) { <option value="@d.Id">@d.Name</option> }
+        </select>
+
+        <h3>Ingredientes</h3>
+        <div id="ing-list"></div>
+        <button class="btn" type="button" onclick="addIng()">+ Ingrediente</button>
+
+        <div style="margin-top:1rem;">
+            <button class="btn" type="submit">Submeter</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+<script>
+let idx = 0;
+function addIng() {
+    const wrap = document.getElementById('ing-list');
+    const row = document.createElement('div');
+    row.style.margin = '.4rem 0';
+    row.innerHTML = `
+        <select name="ingredientIds">
+            ${`@string.Join("", (ingredients ?? Enumerable.Empty<UaiQueSimples.Web.Models.Ingredient>()).Select(i => $"<option value='{i.Id}'>{i.Name}</option>"))`}
+        </select>
+        <input type="number" name="quantities" placeholder="Qtd" step="0.01" style="width:120px" />
+        <select name="unitIds">
+            ${`@string.Join("", (units ?? Enumerable.Empty<UaiQueSimples.Web.Models.UnitOfMeasure>()).Select(u => $"<option value='{u.Id}'>{u.Name}</option>"))`}
+        </select>
+    `;
+    wrap.appendChild(row);
+}
+</script>
+}

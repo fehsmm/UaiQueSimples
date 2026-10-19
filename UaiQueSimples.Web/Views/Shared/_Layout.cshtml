@@ -1,0 +1,52 @@
+@using Microsoft.AspNetCore.Identity
+@using UaiQueSimples.Web.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Uai, que Simples!</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container">
+            <a class="brand" asp-controller="Home" asp-action="Index">Uai, que Simples!</a>
+            <nav>
+                <a asp-controller="Recipes" asp-action="Index">Receitas</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-controller="Recipes" asp-action="Create">Nova Receita</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Admin" asp-action="Index">Backoffice</a>
+                    }
+                    <form asp-page="/Account/Logout" asp-area="Identity" method="post" class="inline-form">
+                        <button type="submit">Sair (@User.Identity?.Name)</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+                    <a asp-area="Identity" asp-page="/Account/Register">Registar</a>
+                }
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert">@TempData["Message"]</div>
+        }
+        @RenderBody()
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>© @DateTime.Now.Year - Uai, que Simples! · Cozinhar é fácil.</p>
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

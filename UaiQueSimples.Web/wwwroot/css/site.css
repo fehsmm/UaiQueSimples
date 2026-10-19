@@ -1,0 +1,18 @@
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin:0; background:#fafafa; color:#222; }
+.container { width: min(1100px, 92%); margin: 0 auto; }
+.topbar { background: #8b5cf6; color:#fff; }
+.topbar .brand { color:#fff; font-weight:700; margin-right: 1rem; text-decoration:none }
+.topbar nav { display:flex; gap:.8rem; align-items:center; }
+.topbar nav a { color:#fff; text-decoration:none; padding:.6rem .8rem; border-radius:.5rem; }
+.topbar nav a:hover { background: rgba(255,255,255,.15); }
+.inline-form { display:inline; }
+main { padding: 2rem 0; }
+.card { background:#fff; border-radius:1rem; padding:1rem; box-shadow:0 8px 30px rgba(0,0,0,.05); margin-bottom:1rem; }
+.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:1rem; }
+.btn { display:inline-block; padding:.6rem 1rem; border-radius:.6rem; background:#8b5cf6; color:#fff; text-decoration:none; border:0; cursor:pointer; }
+.btn.secondary { background:#111827; }
+.badge { display:inline-block; padding:.2rem .5rem; border-radius:.4rem; background:#eee; font-size:.85rem; margin-left:.4rem; }
+.footer { border-top:1px solid #e5e7eb; padding:1.5rem 0; background:#fff; }
+.alert { background:#ecfccb; border:1px solid #bef264; padding:.8rem 1rem; border-radius:.6rem; margin-bottom:1rem; }
+form label { display:block; font-weight:600; margin-top:.6rem; }
+form input, form textarea, form select { width:100%; padding:.6rem .7rem; border:1px solid #e5e7eb; border-radius:.6rem; }

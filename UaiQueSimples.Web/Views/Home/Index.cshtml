@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Início";
+}
+<section class="card">
+    <h1>Uai, que Simples!</h1>
+    <p>Uma expressão muito comum em Minas que, combinada com "simples", transmite a ideia de que cozinhar é fácil.</p>
+    <p><a class="btn" asp-controller="Recipes" asp-action="Index">Explorar Receitas</a></p>
+</section>
+<section class="grid">
+    <div class="card">
+        <h3>Cadastre-se</h3>
+        <p>Para inserir receitas, comentar, avaliar e favoritar.</p>
+        <a class="btn secondary" asp-area="Identity" asp-page="/Account/Register">Criar conta</a>
+    </div>
+    <div class="card">
+        <h3>Busque por receitas</h3>
+        <p>Pesquise por título, método, categoria ou dificuldade.</p>
+        <a class="btn" asp-controller="Recipes" asp-action="Index">Abrir pesquisa</a>
+    </div>
+    <div class="card">
+        <h3>Backoffice</h3>
+        <p>Aprovar receitas, gerir categorias, ingredientes e níveis de dificuldade.</p>
+        <a class="btn secondary" asp-controller="Admin" asp-action="Index">Ir para Backoffice</a>
+    </div>
+</section>

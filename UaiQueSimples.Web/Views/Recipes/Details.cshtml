@@ -1,0 +1,56 @@
+@model UaiQueSimples.Web.Models.Recipe
+@{
+    ViewData["Title"] = Model.Title;
+}
+<article class="card">
+    <h1>@Model.Title</h1>
+    <p>
+        <span class="badge">@Model.Category?.Name</span>
+        <span class="badge">@Model.Difficulty?.Name</span>
+        <span class="badge">@Model.PreparationTimeMinutes min</span>
+        @if (Model.AverageRating.HasValue) { <span class="badge">★ @Model.AverageRating.Value.ToString("0.0")</span> }
+    </p>
+    <h3>Ingredientes</h3>
+    <ul>
+        @foreach (var item in Model.Ingredients)
+        {
+            <li>@item.Quantity @item.UnitOfMeasure?.Name - @item.Ingredient?.Name</li>
+        }
+    </ul>
+    <h3>Método de preparação</h3>
+    <p style="white-space:pre-line">@Model.PreparationMethod</p>
+</article>
+
+<section class="card">
+    <h3>Comentários</h3>
+    @if (Model.Comments.Any())
+    {
+        foreach (var c in Model.Comments.OrderByDescending(c => c.CreatedAt))
+        {
+            <div class="card">
+                <strong>@c.Username</strong> · ★ @c.Rating · <small>@c.CreatedAt.ToLocalTime()</small>
+                <p>@c.Text</p>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Sem comentários ainda.</p>
+    }
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <form asp-action="AddComment" method="post">
+            <input type="hidden" name="recipeId" value="@Model.Id" />
+            <label>Comentário</label>
+            <textarea name="text" rows="3"></textarea>
+            <label>Avaliação (1-5)</label>
+            <input type="number" name="rating" min="1" max="5" value="5" />
+            <button class="btn" type="submit">Enviar</button>
+        </form>
+    }
+    else
+    {
+        <p><a class="btn" asp-area="Identity" asp-page="/Account/Login">Faça login</a> para comentar.</p>
+    }
+</section>
